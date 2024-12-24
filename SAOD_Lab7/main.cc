@@ -5,6 +5,8 @@
 #include <string>
 #include <string_view>
 
+#define DEFAULT_FILE "students.txt"
+
 struct Student {
 	std::string surname;
 	std::string passport;
@@ -69,12 +71,12 @@ void searchByGradeBook(IndexFile const & gradeBookIndex,
 		  << ", номер зачётной книжки: " << student.gradeBook << '\n';
 }
 
-int main()
+int main(int const argc, char const * const args[])
 {
 	IndexFile passportIndex;
 	IndexFile gradeBookIndex;
 
-	std::string_view fname{"../../../../students.txt"};
+	std::string_view fname{(argc > 1) ? args[1] : DEFAULT_FILE};
 
 	// Загрузка данных студентов из файла
 	if (loadStudents(fname, passportIndex, gradeBookIndex)) {
